@@ -232,6 +232,35 @@ body{
 @keyframes liveGlow{0%,100%{opacity:1}50%{opacity:.55}}
 @keyframes liveDotBlink{0%,49%{opacity:1}50%,100%{opacity:.15}}
 
+.info-card{background:var(--olive);border-radius:var(--radius-md);margin-top:10px;padding:6px 8px 8px}
+.info-card summary{
+  list-style:none;cursor:pointer;
+  display:flex;align-items:center;justify-content:space-between;gap:10px;
+  padding:12px 8px 12px 10px;
+  color:#fff;font-size:22px;font-weight:600;letter-spacing:-.02em;line-height:1.15;
+}
+.info-card summary::-webkit-details-marker{display:none}
+.info-card summary::marker{content:''}
+.info-card summary:focus-visible{outline:2px solid var(--lime);outline-offset:2px;border-radius:10px}
+.info-chev{color:var(--lime);font-size:30px;line-height:1;transition:transform .3s var(--ease)}
+.info-card[open] .info-chev{transform:rotate(90deg)}
+.info-body{animation:fadeIn .45s var(--ease)}
+.info-meta{display:grid;grid-template-columns:1fr 1.5fr;gap:8px}
+.info-meta div{background:var(--lime);border-radius:12px;padding:12px 14px;color:var(--forest)}
+.info-meta small{display:block;font-size:10px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;opacity:.7}
+.info-meta b{display:block;margin-top:3px;font-size:15px;font-weight:800;line-height:1.25}
+.info-sub{color:#fff;font-size:12.5px;font-weight:700;margin:16px 6px 8px}
+.unit-list{list-style:none;display:flex;flex-direction:column;gap:8px}
+.unit-list li{background:var(--lime);border-radius:12px;padding:12px 14px;display:flex;gap:12px;align-items:flex-start;color:var(--forest)}
+.unit-no{
+  flex:none;width:26px;height:26px;border-radius:50%;
+  background:var(--forest);color:var(--lime);
+  display:flex;align-items:center;justify-content:center;
+  font-size:12px;font-weight:800;font-variant-numeric:tabular-nums;
+}
+.unit-title{font-size:14.5px;font-weight:700;line-height:1.3;letter-spacing:-.01em}
+.unit-code{font-size:10.5px;font-weight:700;margin-top:4px;opacity:.75;letter-spacing:0}
+
 .name-search{
   display:flex;align-items:center;gap:10px;
   background:var(--forest);
@@ -448,6 +477,11 @@ body{
       </div>
     </div>
 
+    <details class="info-card" id="infoCard">
+      <summary>Informasi Skema<span class="info-chev" aria-hidden="true">&rsaquo;</span></summary>
+      <div class="info-body" id="infoBody"></div>
+    </details>
+
     <label class="name-search">
       <input type="search" id="nameInput" placeholder="cari nama anda di sini ...." autocomplete="off" enterkeyhint="search" aria-label="Cari nama anda">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
@@ -662,6 +696,41 @@ const PESERTA = {
   ]
 };
 
+// Informasi skema (kemasan / paket kompetensi).
+const INFO = {
+  dm: {nama:"Digital Marketing", jenis:"Klaster", units:[
+    ["J.63OPR00.001.2", "Menggunakan Perangkat Komputer"],
+    ["J.63OPR00.007.2", "Menggunakan Penelusur Situs Web (Web Browser)"],
+    ["J.63OPR00.008.2", "Menggunakan Perangkat Lunak Pengakses Surat Elektronik (e-Mail Client)"],
+    ["J.63OPR00.009.2", "Menggunakan Aplikasi Berbasis Internet (Internet Based Applications Literacy)"],
+    ["J.63OPR00.010.2", "Menggunakan Aplikasi Media Sosial"],
+    ["M.70MKT00.009.2", "Merencanakan Riset Terhadap Sebuah Produk dan/atau Merek"],
+    ["M.70MKT00.010.2", "Mengolah Data Riset"],
+    ["M.70MKT00.012.1", "Menggunakan Media Sosial dan Aplikasi Daring (Online Tools)"],
+    ["M.70MKT00.013.1", "Melaksanakan Kegiatan Analisis di Media Sosial dan Media Bisnis Digital"],
+    ["M.70MKT00.014.1", "Mempersiapkan Konten Digital"],
+    ["M.70MKT00.017.1", "Melaksanakan Kegiatan Promosi Merek"],
+    ["M.73ADV00.010.1", "Merumuskan Strategi Kampanye Periklanan"],
+    ["M.73ADV00.012.1", "Menerapkan Rencana Strategi Kampanye Periklanan"]
+  ]},
+  sdm: {nama:"Staf (Administrasi) SDM", jenis:"Okupasi", units:[
+    ["M.70SDM01.010.2", "Menyusun Uraian Jabatan"],
+    ["M.70SDM01.058.2", "Melakukan Administrasi Jaminan Sosial"],
+    ["M.70SDM01.057.2", "Melakukan Administrasi Pengupahan"],
+    ["M.70SDM01.059.2", "Melakukan Administrasi Penerapan Kebijakan MSDM"]
+  ]},
+  tok: {nama:"Teknisi Operator Komputer", jenis:"Okupasi", units:[
+    ["J.63OPR00.002.2", "Menggunakan Sistem Operasi"],
+    ["J.63OPR00.003.2", "Menggunakan Peralatan Peripheral"],
+    ["J.63OPR00.012.2", "Menggunakan perangkat lunak lembar kerja tingkat lanjut"],
+    ["J.63OPR00.014.1", "Melakukan pemasukan data"],
+    ["J.63OPR00.016.1", "Mengidentifikasi aspek keamanan informasi pengguna"],
+    ["J.63OPR00.017.1", "Memastikan keamanan informasi pengguna"],
+    ["J.63OPR00.011.2", "Menggunakan perangkat lunak pengolah kata tingkat lanjut"],
+    ["J.63OPR00.013.1", "Menggunakan perangkat lunak presentasi tingkat lanjut"]
+  ]}
+};
+
 const HARI  = ['Minggu','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
 const BULAN = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
 
@@ -720,10 +789,21 @@ function renderResults(){
         + '<div class="pfoot"><span class="pbadge">Tervalidasi' + SEAL + '</span></div></li>').join('')
     : '<li class="plist-empty">Nama tidak ditemukan</li>';
 }
+function renderInfo(){
+  const inf = INFO[active.id];
+  document.getElementById('infoBody').innerHTML =
+    '<div class="info-meta"><div><small>Jenis Skema</small><b>' + esc(inf.jenis) + '</b></div>'
+    + '<div><small>Nama Skema</small><b>' + esc(inf.nama) + '</b></div></div>'
+    + '<p class="info-sub">Rincian Unit Kompetensi (' + inf.units.length + ' unit)</p>'
+    + '<ol class="unit-list">' + inf.units.map((u,i) =>
+        '<li><span class="unit-no">' + (i+1) + '</span><div><div class="unit-title">' + esc(u[1]) + '</div><div class="unit-code">' + esc(u[0]) + '</div></div></li>').join('')
+    + '</ol>';
+}
 function selectScheme(s){
   active = s;
   gridEl.querySelectorAll('.scheme-btn').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.id === s.id)));
   renderSchedule();
+  renderInfo();
   renderResults();
 }
 gridEl.insertAdjacentHTML('beforeend', SCHEMES.map((s,i) => '<button type="button" class="scheme-btn' + (i === 0 ? ' on' : '') + '" data-id="' + s.id + '" aria-pressed="false">' + esc(s.name) + '</button>').join(''));
