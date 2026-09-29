@@ -244,8 +244,21 @@ body{
 .info-card summary:focus-visible{outline:2px solid var(--lime);outline-offset:2px;border-radius:10px}
 .info-chev{color:var(--lime);font-size:30px;line-height:1;transition:transform .3s var(--ease)}
 .info-card[open] .info-chev{transform:rotate(90deg)}
-.info-body{animation:fadeIn .45s var(--ease)}
+@keyframes stackIn{
+  0%{opacity:0;transform:translateY(-34px) scale(.92)}
+  60%{opacity:1}
+  100%{opacity:1;transform:none}
+}
+@keyframes stackOut{
+  0%{opacity:1;transform:none}
+  100%{opacity:0;transform:translateY(-30px) scale(.92)}
+}
+.stack-item{opacity:0}
+.info-card.anim-in .stack-item{animation:stackIn .55s var(--ease) both;animation-delay:calc(var(--i,0) * 48ms)}
+.info-card.anim-out .stack-item{animation:stackOut .32s var(--ease) both;animation-delay:calc(var(--o,0) * 26ms)}
+.info-card:not(.anim-in):not(.anim-out) .stack-item{opacity:1}
 .info-meta{display:grid;grid-template-columns:1fr 1.5fr;gap:8px}
+.info-meta.stack-item div{transform:none}
 .info-meta div{background:var(--lime);border-radius:12px;padding:12px 14px;color:var(--forest)}
 .info-meta small{display:block;font-size:10px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;opacity:.7}
 .info-meta b{display:block;margin-top:3px;font-size:15px;font-weight:800;line-height:1.25}
@@ -467,9 +480,9 @@ body{
 
   <!-- ============ PANEL: SKEMA ============ -->
   <section class="panel on" id="panel-skema" role="tabpanel">
-    <div class="scheme-grid" id="schemeGrid" role="group" aria-label="Pilih skema"><div class="scheme-pill" id="schemePill"></div></div>
+    <div class="scheme-grid reveal" id="schemeGrid" role="group" aria-label="Pilih skema"><div class="scheme-pill" id="schemePill"></div></div>
 
-    <div class="sched-card" id="schedCard">
+    <div class="sched-card reveal" id="schedCard">
       <div class="sched-date" id="schedDate"></div>
       <div class="slot-tags">
         <span class="tag-time" id="schedTime"></span>
@@ -477,24 +490,24 @@ body{
       </div>
     </div>
 
-    <details class="info-card" id="infoCard">
+    <details class="info-card reveal" id="infoCard">
       <summary>Informasi Skema<span class="info-chev" aria-hidden="true">&rsaquo;</span></summary>
       <div class="info-body" id="infoBody"></div>
     </details>
 
-    <label class="name-search">
+    <label class="name-search reveal">
       <input type="search" id="nameInput" placeholder="cari nama anda di sini ...." autocomplete="off" enterkeyhint="search" aria-label="Cari nama anda">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
     </label>
     <p class="plist-count" id="plistCount" aria-live="polite" hidden></p>
     <ul class="plist-list" id="plistList" hidden></ul>
-    <p class="help-note">Tidak menemukan namamu? Hubungi admin di <button type="button" class="help-link" id="toContact">&ldquo;Informasi Kontak&rdquo;</button></p>
+    <p class="help-note reveal">Tidak menemukan namamu? Hubungi admin di <button type="button" class="help-link" id="toContact">&ldquo;Informasi Kontak&rdquo;</button></p>
   </section>
 
   <!-- ============ PANEL: ASESOR PENGUJI ============ -->
   <section class="panel" id="panel-asesor" role="tabpanel">
 
-    <div class="group">
+    <div class="group reveal">
       <div class="group-head"><h2>Digital Marketing</h2></div>
       <div class="asesor-row">
         <div class="asesor-name">Muhammad Askolani, M.I.Kom.<button type="button" class="ma-badge" aria-label="Keterangan Master Asesor" aria-expanded="false" aria-controls="maTip">MA</button></div>
@@ -507,7 +520,7 @@ body{
       </div>
     </div>
 
-    <div class="group">
+    <div class="group reveal">
       <div class="group-head"><h2>Teknisi Operator Komputer</h2></div>
       <div class="asesor-row">
         <div class="asesor-name">Jeny Puspitasari, M.Pd.</div>
@@ -519,7 +532,7 @@ body{
       </div>
     </div>
 
-    <div class="group">
+    <div class="group reveal">
       <div class="group-head"><h2>Staf (Administrasi) SDM</h2></div>
       <div class="asesor-row">
         <div class="asesor-name">Dr. Yucki Prihadi, S.Si, M.Kom, M.M., Ph.D</div>
@@ -572,8 +585,10 @@ body{
 <script>
 /* ============ SCROLL REVEAL ============ */
 const revealObserver = new IntersectionObserver((entries) => {
+  let k = 0; // yang muncul bersamaan dibuat berurutan
   entries.forEach(entry => {
     if(entry.isIntersecting){
+      entry.target.style.transitionDelay = Math.min(k++, 4) * 70 + 'ms';
       entry.target.classList.add('in-view');
       revealObserver.unobserve(entry.target);
     }
@@ -582,8 +597,7 @@ const revealObserver = new IntersectionObserver((entries) => {
 
 function observeReveals(root){
   const scope = root || document;
-  [...scope.querySelectorAll('.reveal:not(.in-view)')].forEach((el, i) => {
-    if(!el.style.transitionDelay) el.style.transitionDelay = Math.min(i * 60, 260) + 'ms';
+  [...scope.querySelectorAll('.reveal:not(.in-view)')].forEach(el => {
     revealObserver.observe(el);
   });
 }
@@ -791,12 +805,14 @@ function renderResults(){
 }
 function renderInfo(){
   const inf = INFO[active.id];
+  const n = inf.units.length + 2;
+  const st = i => ' style="--i:' + Math.min(i, 14) + ';--o:' + Math.min(n - 1 - i, 14) + '"';
   document.getElementById('infoBody').innerHTML =
-    '<div class="info-meta"><div><small>Jenis Skema</small><b>' + esc(inf.jenis) + '</b></div>'
+    '<div class="info-meta stack-item"' + st(0) + '><div><small>Jenis Skema</small><b>' + esc(inf.jenis) + '</b></div>'
     + '<div><small>Nama Skema</small><b>' + esc(inf.nama) + '</b></div></div>'
-    + '<p class="info-sub">Rincian Unit Kompetensi (' + inf.units.length + ' unit)</p>'
+    + '<p class="info-sub stack-item"' + st(1) + '>Rincian Unit Kompetensi (' + inf.units.length + ' unit)</p>'
     + '<ol class="unit-list">' + inf.units.map((u,i) =>
-        '<li><span class="unit-no">' + (i+1) + '</span><div><div class="unit-title">' + esc(u[1]) + '</div><div class="unit-code">' + esc(u[0]) + '</div></div></li>').join('')
+        '<li class="stack-item"' + st(i + 2) + '><span class="unit-no">' + (i+1) + '</span><div><div class="unit-title">' + esc(u[1]) + '</div><div class="unit-code">' + esc(u[0]) + '</div></div></li>').join('')
     + '</ol>';
 }
 function selectScheme(s){
@@ -811,6 +827,34 @@ segment('schemeGrid','schemePill', b => selectScheme(SCHEMES.find(s => s.id === 
 input.addEventListener('input', renderResults);
 selectScheme(SCHEMES[0]);
 setInterval(updateState, 30000);
+
+/* ============ INFORMASI SKEMA: ANIMASI BERTUMPUK ============ */
+(function(){
+  const card = document.getElementById('infoCard');
+  const sum = card.querySelector('summary');
+  const reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let closing = false;
+  sum.addEventListener('click', e => {
+    e.preventDefault();
+    if(closing) return;
+    if(!card.open){
+      card.classList.remove('anim-in','anim-out');
+      card.open = true;
+      void card.offsetWidth;            // ulangi animasi dari awal
+      card.classList.add('anim-in');
+    } else {
+      closing = true;
+      card.classList.remove('anim-in');
+      card.classList.add('anim-out');
+      const total = reduce ? 0 : 340 + Math.min(card.querySelectorAll('.stack-item').length, 15) * 26;
+      setTimeout(() => {
+        card.open = false;
+        card.classList.remove('anim-out');
+        closing = false;
+      }, total);
+    }
+  });
+})();
 
 /* ============ LINK KE INFORMASI KONTAK ============ */
 document.getElementById('toContact').addEventListener('click', () => {
