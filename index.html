@@ -232,6 +232,22 @@ body{
 @keyframes liveGlow{0%,100%{opacity:1}50%{opacity:.55}}
 @keyframes liveDotBlink{0%,49%{opacity:1}50%,100%{opacity:.15}}
 
+.venue-card{
+  display:flex;align-items:center;gap:14px;
+  background:var(--mint-pale);border-radius:var(--radius-md);
+  margin-top:10px;padding:14px 16px;
+}
+.venue-ico{
+  flex:none;width:40px;height:40px;border-radius:50%;
+  background:var(--forest);color:var(--lime);
+  display:flex;align-items:center;justify-content:center;
+}
+.venue-ico svg{width:20px;height:20px}
+.venue-label{font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:rgba(11,54,15,.6)}
+.venue-name{font-size:16px;font-weight:800;line-height:1.25;letter-spacing:-.01em;color:var(--forest);margin-top:2px}
+.venue-card .btn-maps{margin-top:10px}
+.venue-sub{font-size:13px;font-weight:500;line-height:1.4;color:rgba(11,54,15,.85);margin-top:2px}
+
 .info-card{background:var(--olive);border-radius:var(--radius-md);margin-top:10px;padding:6px 8px 8px}
 .info-card summary{
   list-style:none;cursor:pointer;
@@ -432,6 +448,8 @@ body{
   .scheme-btn{font-size:17px;min-height:104px}
   .sched-card{padding:26px 26px}
   .sched-date{font-size:36px}
+  .venue-name{font-size:18px}
+  .venue-sub{font-size:14px}
   .pname{font-size:30px}
   .pprodi{font-size:17px}
   .group-head h2{font-size:26px}
@@ -487,6 +505,21 @@ body{
       <div class="slot-tags">
         <span class="tag-time" id="schedTime"></span>
         <span class="tag-state" id="schedState"></span>
+      </div>
+    </div>
+
+    <div class="venue-card reveal" id="venueCard">
+      <div class="venue-ico" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
+      </div>
+      <div>
+        <div class="venue-label">Tempat</div>
+        <div class="venue-name" id="venueName"></div>
+        <div class="venue-sub" id="venueSub"></div>
+        <a class="btn-maps" id="venueMaps" href="#" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 20l-6 2V6l6-2 6 2 6-2v16l-6 2-6-2z"/><path d="M9 4v16M15 6v16"/></svg>
+          Lihat Maps
+        </a>
       </div>
     </div>
 
@@ -634,9 +667,15 @@ segment('seg','segPill', btn => {
 /* ============ SKEMA ============ */
 // Ubah tanggal/jam tiap skema di sini.
 const SCHEMES = [
-  {id:'dm',  name:'Digital Marketing',         date:'2026-10-02', start:'08:00', end:'16:00'},
-  {id:'sdm', name:'Staff (Administrasi) SDM',  date:'2026-10-04', start:'08:00', end:'16:00'},
-  {id:'tok', name:'Teknisi Operator Komputer', date:'2026-10-04', start:'08:00', end:'16:00'}
+  {id:'dm',  name:'Digital Marketing',         date:'2026-10-02', start:'08:00', end:'16:00',
+   venue:'Kampus 1 UIBBC', venueSub:'Jalan Widarasari III, Tuparev, Sutawinangun, Kedawung, Cirebon',
+   maps:'https://maps.app.goo.gl/fwLNDiNWkEHwPcaUA'},
+  {id:'sdm', name:'Staff (Administrasi) SDM',  date:'2026-10-04', start:'08:00', end:'16:00',
+   venue:'Hotel Indo Cirebon', venueSub:'Kampus II Pascasarjana Universitas Islam Bunga Bangsa Cirebon',
+   maps:'https://maps.app.goo.gl/fqAKSvf6EC14t5tz8'},
+  {id:'tok', name:'Teknisi Operator Komputer', date:'2026-10-04', start:'08:00', end:'16:00',
+   venue:'Hotel Indo Cirebon', venueSub:'Kampus II Pascasarjana Universitas Islam Bunga Bangsa Cirebon',
+   maps:'https://maps.app.goo.gl/fqAKSvf6EC14t5tz8'}
 ];
 
 // Data peserta per skema: n = nama, p = program studi (semua berstatus Tervalidasi).
@@ -780,6 +819,9 @@ function renderSchedule(){
   const [y,m,d] = active.date.split('-').map(Number);
   const dt = new Date(Date.UTC(y, m-1, d));
   dateEl.innerHTML = HARI[dt.getUTCDay()] + ',<br>' + d + ' ' + BULAN[m-1] + ' ' + y;
+  document.getElementById('venueName').textContent = active.venue;
+  document.getElementById('venueSub').textContent = active.venueSub;
+  document.getElementById('venueMaps').href = active.maps;
   timeEl.textContent = active.start.replace(':','.') + '–' + active.end.replace(':','.');
   updateState();
 }
