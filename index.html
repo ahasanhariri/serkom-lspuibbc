@@ -81,7 +81,7 @@ body{
 @keyframes sheen{0%{left:-70%}35%{left:140%}100%{left:140%}}
 .hero > *{position:relative;z-index:2}
 .hero h1{
-  margin:auto 0;
+  margin:auto 0 0;
   padding-top:22px;
   font-size:clamp(28px,8vw,34px);
   font-weight:800;
@@ -109,7 +109,7 @@ body{
   border-radius:var(--radius-lg) var(--radius-lg) 0 0;
   margin:16px 18px 0;
   padding:22px 20px 18px;
-  display:flex;align-items:center;gap:16px;
+  display:flex;flex-wrap:wrap;align-items:center;gap:16px;
   transform:translateY(40px);
   opacity:0;
   animation:slideUp .85s var(--ease) .5s forwards;
@@ -129,6 +129,16 @@ body{
 }
 .btn-maps:active{transform:scale(.95)}
 .btn-maps svg{width:14px;height:14px;flex:none}
+
+.btn-daftar{
+  flex:0 0 100%;
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  border:0;border-radius:999px;padding:15px 18px;
+  font-family:inherit;font-size:16px;font-weight:800;letter-spacing:-.01em;
+  background:rgba(11,54,15,.16);color:rgba(11,54,15,.5);
+  cursor:not-allowed;
+}
+.btn-daftar svg{width:18px;height:18px;flex:none}
 
 /* ---------- TABS ---------- */
 .seg{
@@ -290,48 +300,6 @@ body{
 .unit-title{font-size:14.5px;font-weight:700;line-height:1.3;letter-spacing:-.01em}
 .unit-code{font-size:10.5px;font-weight:700;margin-top:4px;opacity:.75;letter-spacing:0}
 
-.name-search{
-  display:flex;align-items:center;gap:10px;
-  background:var(--forest);
-  border-radius:999px;
-  margin-top:10px;padding:0 20px 0 18px;height:46px;
-}
-.name-search:focus-within{box-shadow:0 0 0 2px var(--lime)}
-.name-search input{
-  flex:1;min-width:0;border:0;outline:0;background:transparent;
-  font-family:inherit;font-size:16px;font-weight:500;color:#fff;
-  -webkit-appearance:none;appearance:none;
-}
-.name-search input::placeholder{color:rgba(255,255,255,.72);font-weight:400}
-.name-search input::-webkit-search-cancel-button{-webkit-appearance:none;appearance:none}
-.name-search svg{width:20px;height:20px;flex:none;color:#fff}
-
-.plist-count{font-size:12px;font-weight:700;color:rgba(11,54,15,.6);margin:12px 4px 8px}
-.plist-count[hidden],.plist-list[hidden]{display:none}
-.plist-list{list-style:none;display:flex;flex-direction:column;gap:10px;margin-top:12px}
-.plist-count:not([hidden]) + .plist-list{margin-top:0}
-.pcard{
-  background:#fff;border-radius:22px;
-  padding:20px 22px 14px;color:#000;
-}
-.pname{font-size:clamp(22px,6.6vw,27px);font-weight:800;line-height:1.12;letter-spacing:-.02em;overflow-wrap:anywhere}
-.pprodi{font-size:clamp(14px,4vw,16px);font-weight:500;line-height:1.3;margin-top:4px}
-.pfoot{display:flex;justify-content:flex-end;margin-top:20px}
-.pbadge{
-  display:inline-flex;align-items:center;gap:5px;
-  background:#0071bc;color:#fff;
-  font-size:13.5px;font-weight:500;line-height:1;
-  padding:5px 6px 5px 8px;border-radius:8px;
-}
-.pbadge svg{width:17px;height:17px;flex:none}
-.plist-empty{
-  background:#fff;border-radius:14px;text-align:center;
-  padding:22px 14px;font-size:14px;font-weight:600;color:rgba(11,54,15,.55);
-}
-.pcard mark{background:var(--lime);color:inherit;border-radius:3px;padding:0 1px}
-@keyframes plistIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
-.pcard.pop{animation:plistIn .3s var(--ease) both}
-
 .help-note{
   margin:26px 8px 0;text-align:center;
   font-size:13.5px;font-weight:500;line-height:1.5;color:rgba(11,54,15,.8);
@@ -412,6 +380,109 @@ body{
 .foot-links a span{border-bottom:1.5px solid rgba(11,54,15,.3);padding-bottom:1px}
 .copy{margin-top:18px;font-size:11px;font-weight:500;color:rgba(11,54,15,.7)}
 
+
+.name-search{
+  display:flex;align-items:center;gap:10px;
+  background:var(--forest);
+  border-radius:999px;
+  margin-top:10px;padding:0 20px 0 18px;height:46px;
+}
+.name-search input{
+  flex:1;min-width:0;border:0;outline:0;background:transparent;
+  font-family:inherit;font-size:16px;font-weight:500;color:#fff;
+  -webkit-appearance:none;appearance:none;
+}
+.name-search input::placeholder{color:rgba(255,255,255,.72);font-weight:400}
+.name-search input:disabled{cursor:not-allowed}
+.name-search svg{width:20px;height:20px;flex:none;color:#fff}
+.plist-empty{
+  list-style:none;background:#fff;border-radius:var(--radius-md);text-align:center;
+  margin-top:10px;padding:26px 18px;
+  font-size:15px;font-weight:700;line-height:1.4;color:rgba(11,54,15,.7);
+}
+
+/* ---------- BATCH 2 / SIAP-SIAP ---------- */
+.hero-badge{
+  display:inline-flex;align-items:center;gap:8px;align-self:center;
+  margin:14px auto auto;
+  background:var(--forest);color:var(--lime);
+  font-size:11.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;
+  padding:8px 14px;border-radius:999px;
+  box-shadow:0 6px 16px rgba(11,54,15,.22);
+}
+.hero-badge i{width:8px;height:8px;border-radius:50%;background:var(--lime);display:block;animation:soonPulse 1.6s ease-in-out infinite}
+@keyframes soonPulse{0%,100%{box-shadow:0 0 0 0 rgba(217,224,33,.7)}60%{box-shadow:0 0 0 7px rgba(217,224,33,0)}}
+.tag-state.soon{background:var(--forest);color:var(--lime)}
+.tag-state.soon i{animation:soonDot 1.4s ease-in-out infinite}
+@keyframes soonDot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.35;transform:scale(.7)}}
+.sched-date.tba{font-size:clamp(23px,7vw,29px)}
+
+.prep-card{background:var(--forest);border-radius:var(--radius-md);margin-top:10px;padding:22px 18px 18px;color:#fff}
+.prep-card h3{font-size:22px;font-weight:800;letter-spacing:-.02em;line-height:1.15;color:var(--lime)}
+.prep-card .prep-sub{font-size:13px;font-weight:500;line-height:1.5;margin-top:6px;color:rgba(255,255,255,.8)}
+.prep-list{list-style:none;display:flex;flex-direction:column;gap:8px;margin-top:14px}
+.prep-list li{background:rgba(255,255,255,.08);border-radius:12px;padding:12px 14px;display:flex;gap:12px;align-items:flex-start;font-size:14px;font-weight:600;line-height:1.4}
+.prep-no{flex:none;width:26px;height:26px;border-radius:50%;background:var(--lime);color:var(--forest);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800}
+@media (min-width:760px){.prep-card{padding:26px 24px 22px}.prep-card h3{font-size:26px}.prep-list li{font-size:15px}}
+
+/* ---------- POPUP BATCH 2 ---------- */
+.modal{
+  position:fixed;inset:0;z-index:100;
+  display:flex;align-items:center;justify-content:center;
+  padding:max(20px,env(safe-area-inset-top,0px)) 20px max(20px,env(safe-area-inset-bottom,0px));
+  background:rgba(11,54,15,.58);
+  -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
+  opacity:0;visibility:hidden;
+  transition:opacity .35s var(--ease),visibility .35s;
+}
+.modal.open{opacity:1;visibility:visible}
+.modal-box{
+  position:relative;width:100%;max-width:380px;max-height:100%;overflow-y:auto;
+  background:var(--lime);color:var(--forest);
+  border-radius:var(--radius-xl);
+  padding:34px 24px 24px;text-align:center;
+  box-shadow:0 30px 80px rgba(0,0,0,.35);
+  transform:translateY(34px) scale(.93);
+  transition:transform .55s var(--ease);
+}
+.modal.open .modal-box{transform:none}
+.modal-x{
+  position:absolute;top:12px;right:12px;width:36px;height:36px;
+  border:0;border-radius:50%;background:rgba(11,54,15,.12);color:var(--forest);
+  display:flex;align-items:center;justify-content:center;cursor:pointer;
+  transition:background .25s ease,transform .25s var(--ease);
+}
+.modal-x:hover{background:rgba(11,54,15,.2)}
+.modal-x:active{transform:scale(.9)}
+.modal-x svg{width:18px;height:18px}
+.modal-ico{
+  width:68px;height:68px;border-radius:50%;margin:0 auto 14px;
+  background:var(--forest);color:var(--lime);
+  display:flex;align-items:center;justify-content:center;
+}
+.modal-ico svg{width:32px;height:32px;transform-origin:50% 8%}
+.modal.open .modal-ico svg{animation:bellRing 1.6s ease-in-out .5s 2}
+@keyframes bellRing{0%,100%{transform:rotate(0)}15%{transform:rotate(14deg)}30%{transform:rotate(-12deg)}45%{transform:rotate(8deg)}60%{transform:rotate(-5deg)}75%{transform:rotate(2deg)}}
+.modal-tag{
+  display:inline-block;background:var(--forest);color:var(--lime);
+  font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;
+  padding:5px 12px;border-radius:999px;
+}
+.modal-box h2{font-size:clamp(22px,6.4vw,26px);font-weight:800;line-height:1.18;letter-spacing:-.02em;margin-top:12px;text-wrap:balance}
+.modal-box p{font-size:14px;font-weight:500;line-height:1.55;margin-top:12px;color:rgba(11,54,15,.88)}
+.modal-actions{display:flex;flex-direction:column;gap:8px;margin-top:20px}
+.modal-btn{
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  border:0;border-radius:999px;padding:14px 18px;
+  font-family:inherit;font-size:15px;font-weight:800;text-decoration:none;cursor:pointer;
+  transition:transform .25s var(--ease);
+}
+.modal-btn:active{transform:scale(.97)}
+.modal-btn.primary{background:var(--forest);color:var(--lime)}
+.modal-btn.ghost{background:transparent;color:var(--forest)}
+.modal-btn svg{width:18px;height:18px}
+.modal-btn:focus-visible,.modal-x:focus-visible{outline:2px solid var(--forest);outline-offset:2px}
+
 /* ---------- SCROLL REVEAL ---------- */
 .reveal{
   opacity:0;transform:translateY(26px);
@@ -450,8 +521,6 @@ body{
   .sched-date{font-size:36px}
   .venue-name{font-size:18px}
   .venue-sub{font-size:14px}
-  .pname{font-size:30px}
-  .pprodi{font-size:17px}
   .group-head h2{font-size:26px}
   .asesor-name{font-size:19px}
   .contact{flex-direction:row}
@@ -473,11 +542,12 @@ body{
       <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3M16 3h3a2 2 0 0 1 2 2v3M21 16v3a2 2 0 0 1-2 2h-3M8 21H5a2 2 0 0 1-2-2v-3"/></svg>
     </button>
     <h1>Jadwal Sertifikasi Kompetensi LSP UI Bunga Bangsa Cirebon</h1>
+    <div class="hero-badge"><i></i>Batch 2 &middot; Segera Dibuka</div>
   </header>
 
   <!-- ============ DATE + VENUE ============ -->
   <section class="meta">
-    <div class="meta-date">Jumat &amp; Minggu,<b>2 &amp; 4 Oktober 2026</b></div>
+    <div class="meta-date">Pelaksanaan Batch 2<b>Segera Diumumkan</b></div>
     <div class="meta-venue">
       <div class="v1">Kampus 1 UIBBC</div>
       <div class="v2">Jalan Widarasari III, Tuparev, Sutawinangun, Kedawung, Cirebon</div>
@@ -486,6 +556,10 @@ body{
         Lihat Maps
       </a>
     </div>
+      <button type="button" class="btn-daftar" disabled aria-disabled="true" title="Pendaftaran belum dibuka">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2.5"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
+        Daftar Sekarang
+      </button>
   </section>
 
   <!-- ============ TABS ============ -->
@@ -529,12 +603,21 @@ body{
     </details>
 
     <label class="name-search reveal">
-      <input type="search" id="nameInput" placeholder="cari nama anda di sini ...." autocomplete="off" enterkeyhint="search" aria-label="Cari nama anda">
+      <input type="search" id="nameInput" placeholder="cari nama anda di sini ...." autocomplete="off" aria-label="Cari nama anda" disabled>
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
     </label>
-    <p class="plist-count" id="plistCount" aria-live="polite" hidden></p>
-    <ul class="plist-list" id="plistList" hidden></ul>
-    <p class="help-note reveal">Tidak menemukan namamu? Hubungi admin di <button type="button" class="help-link" id="toContact">&ldquo;Informasi Kontak&rdquo;</button></p>
+    <div class="plist-empty reveal">Nama peserta segera diinformasikan</div>
+
+    <div class="prep-card reveal">
+      <h3>Siap-siap, Batch 2 Segera Hadir!</h3>
+      <p class="prep-sub">Jadwal dan pendaftaran akan diumumkan sebentar lagi. Mulai persiapkan dirimu dari sekarang.</p>
+      <ol class="prep-list">
+        <li><span class="prep-no">1</span><span>Pelajari rincian unit kompetensi skema pilihanmu di &ldquo;Informasi Skema&rdquo;.</span></li>
+        <li><span class="prep-no">2</span><span>Siapkan berkas pendukung kompetensimu.</span></li>
+        <li><span class="prep-no">3</span><span>Pantau Instagram <b>@lsp.uibbc</b> untuk pengumuman jadwal &amp; pendaftaran.</span></li>
+      </ol>
+    </div>
+    <p class="help-note reveal">Ada pertanyaan seputar Batch 2? Hubungi admin di <button type="button" class="help-link" id="toContact">&ldquo;Informasi Kontak&rdquo;</button></p>
   </section>
 
   <!-- ============ PANEL: ASESOR PENGUJI ============ -->
@@ -615,6 +698,28 @@ body{
   </footer>
 </div>
 
+<!-- ============ POPUP BATCH 2 ============ -->
+<div class="modal" id="batchModal" role="dialog" aria-modal="true" aria-labelledby="batchTitle" aria-describedby="batchDesc" aria-hidden="true">
+  <div class="modal-box">
+    <button type="button" class="modal-x" id="batchClose" aria-label="Tutup">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+    <div class="modal-ico" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+    </div>
+    <span class="modal-tag">Batch 2</span>
+    <h2 id="batchTitle">Sertifikasi Kompetensi LSP UIBBC Batch 2 Akan Segera Dibuka!</h2>
+    <p id="batchDesc">Bersiaplah! Jadwal, skema, dan tata cara pendaftaran Batch 2 akan segera diumumkan. Pantau terus kanal resmi kami supaya kamu tidak ketinggalan informasinya.</p>
+    <div class="modal-actions">
+      <a class="modal-btn primary" href="https://instagram.com/lsp.uibbc" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1.2" fill="currentColor" stroke="none"/></svg>
+        Pantau di Instagram
+      </a>
+      <button type="button" class="modal-btn ghost" id="batchOk">Oke, Siap!</button>
+    </div>
+  </div>
+</div>
+
 <script>
 /* ============ SCROLL REVEAL ============ */
 const revealObserver = new IntersectionObserver((entries) => {
@@ -665,95 +770,19 @@ segment('seg','segPill', btn => {
 });
 
 /* ============ SKEMA ============ */
-// Ubah tanggal/jam tiap skema di sini.
+// Batch 2: jadwal belum ditetapkan. Saat tanggalnya sudah pasti, isi di sini
+// lalu ubah renderSchedule() agar menampilkannya.
 const SCHEMES = [
-  {id:'dm',  name:'Digital Marketing',         date:'2026-10-02', start:'08:00', end:'16:00',
+  {id:'dm',  name:'Digital Marketing',
    venue:'Kampus 1 UIBBC', venueSub:'Jalan Widarasari III, Tuparev, Sutawinangun, Kedawung, Cirebon',
    maps:'https://maps.app.goo.gl/fwLNDiNWkEHwPcaUA'},
-  {id:'sdm', name:'Staff (Administrasi) SDM',  date:'2026-10-04', start:'08:00', end:'16:00',
+  {id:'sdm', name:'Staff (Administrasi) SDM',
    venue:'Hotel Indo Cirebon', venueSub:'Kampus II Pascasarjana Universitas Islam Bunga Bangsa Cirebon',
    maps:'https://maps.app.goo.gl/fqAKSvf6EC14t5tz8'},
-  {id:'tok', name:'Teknisi Operator Komputer', date:'2026-10-04', start:'08:00', end:'16:00',
+  {id:'tok', name:'Teknisi Operator Komputer',
    venue:'Hotel Indo Cirebon', venueSub:'Kampus II Pascasarjana Universitas Islam Bunga Bangsa Cirebon',
    maps:'https://maps.app.goo.gl/fqAKSvf6EC14t5tz8'}
 ];
-
-// Data peserta per skema: n = nama, p = program studi (semua berstatus Tervalidasi).
-const PESERTA = {
-  dm: [
-    {n:"Adrian Hariyanto", p:"Hukum Pidana Islam"},
-    {n:"Amelia Febriyanti", p:"Pendidikan Agama Islam"},
-    {n:"Audi Sifah Karimah", p:"Pendidikan Agama Islam"},
-    {n:"Fudailah Alfain", p:"Pendidikan Agama Islam"},
-    {n:"Gilang Badar Ag", p:"Ekonomi Syariah"},
-    {n:"Jamal Nur Laili", p:"Pendidikan Guru Madrasah Ibtidaiyah"},
-    {n:"Khotibul Umam", p:"Komunikasi dan Penyiaran Islam"},
-    {n:"Muhamad Fikri Ramadani", p:"Komunikasi dan Penyiaran Islam"},
-    {n:"Muhammad Shofiullah", p:"Komunikasi dan Penyiaran Islam"},
-    {n:"Naurotun Nihayah", p:"Pendidikan Agama Islam"},
-    {n:"Nurhasanah", p:"Pendidikan Agama Islam"},
-    {n:"Nurwakhid", p:"Komunikasi dan Penyiaran Islam"},
-    {n:"Putri Pandita", p:"Pendidikan Guru Madrasah Ibtidaiyah"},
-    {n:"Riri Juhriah", p:"Pendidikan Guru Madrasah Ibtidaiyah"},
-    {n:"Solehudin", p:"Bimbingan Konseling Pendidikan Islam"},
-    {n:"Soumatun Na'imah", p:"Pendidikan Agama Islam"}
-  ],
-  sdm: [
-    {n:"Abdul Muhyi", p:"Pendidikan Agama Islam"},
-    {n:"Abdul Yamin", p:"Pendidikan Agama Islam"},
-    {n:"Adinda Febriana Adha", p:"Hukum Pidana Islam"},
-    {n:"Ajeng Wundari", p:"Pendidikan Agama Islam"},
-    {n:"Arnelia Putri Pratiwi", p:"Ekonomi Syariah"},
-    {n:"Asep Hidayah", p:"Hukum Pidana Islam"},
-    {n:"Badriyah Kufa", p:"Ekonomi Syariah"},
-    {n:"Della Wahyuningsih", p:"Ekonomi Syariah"},
-    {n:"Dhea Silviana Latifah", p:"Ekonomi Syariah"},
-    {n:"Diva Nazmi Laila", p:"Ekonomi Syariah"},
-    {n:"Dwi Aprilia", p:"Ekonomi Syariah"},
-    {n:"Fahmi Fajar Ramadhan", p:"Hukum Pidana Islam"},
-    {n:"Gabriel Achmad Nandito", p:"Hukum Pidana Islam"},
-    {n:"Harjasa", p:"Hukum Pidana Islam"},
-    {n:"Mitra Pramosari", p:"Hukum Pidana Islam"},
-    {n:"Muhamad Yunus", p:"Hukum Pidana Islam"},
-    {n:"Muhammad Azhari Lazuardi", p:"Pendidikan Guru Madrasah Ibtidaiyah"},
-    {n:"Muhammad Zidan Andriawan", p:"Ekonomi Syariah"},
-    {n:"Roisah", p:"Hukum Pidana Islam"},
-    {n:"Siti Ayu Juliyah", p:"Ekonomi Syariah"},
-    {n:"Sri Yuedah", p:"Ekonomi Syariah"},
-    {n:"Vanessa Frisiliani", p:"Hukum Pidana Islam"},
-    {n:"Yourman Gamas Mahesal", p:"Ekonomi Syariah"},
-    {n:"Zahrotul Aliyah", p:"Manajemen Pendidikan Islam"}
-  ],
-  tok: [
-    {n:"Ali Achmad Muhajir", p:"Ekonomi Syariah"},
-    {n:"Ali Fajri", p:"Manajemen Pendidikan Islam"},
-    {n:"Alifia Zahrotun Nisa", p:"Pendidikan Guru Madrasah Ibtidaiyah"},
-    {n:"Almar'atus Sholihah", p:"Pendidikan Guru Madrasah Ibtidaiyah"},
-    {n:"Amal Khayati", p:"Pendidikan Agama Islam"},
-    {n:"Ayu Inam Istiqomah", p:"Bimbingan Konseling Pendidikan Islam"},
-    {n:"Cicih", p:"Hukum Pidana Islam"},
-    {n:"Dian Surlastry", p:"Hukum Pidana Islam"},
-    {n:"Diana Lestari", p:"Pendidikan Guru Madrasah Ibtidaiyah"},
-    {n:"Feronika", p:"Pendidikan Guru Madrasah Ibtidaiyah"},
-    {n:"Gea Melinda", p:"Pendidikan Guru Madrasah Ibtidaiyah"},
-    {n:"Heni Suhaeni", p:"Pendidikan Agama Islam"},
-    {n:"Icha Khoirun Nissa", p:"Pendidikan Guru Madrasah Ibtidaiyah"},
-    {n:"Muchamad Faisal Abda'u", p:"Pendidikan Agama Islam"},
-    {n:"Muhamad Lukman Nurhakim", p:"Pendidikan Agama Islam"},
-    {n:"Muhamad Suhendi", p:"Ekonomi Syariah"},
-    {n:"Nasywa Indriani", p:"Pendidikan Guru Madrasah Ibtidaiyah"},
-    {n:"Reni Fadhilah", p:"Manajemen Pendidikan Islam"},
-    {n:"Riziq Maulana Sa Bani", p:"Manajemen Pendidikan Islam"},
-    {n:"Rokimi", p:"Pendidikan Guru Madrasah Ibtidaiyah"},
-    {n:"Shofiah Najwah Nayla Syihab", p:"Pendidikan Guru Madrasah Ibtidaiyah"},
-    {n:"Sihabudin", p:"Ekonomi Syariah"},
-    {n:"Siti Nur Ayni", p:"Pendidikan Guru Madrasah Ibtidaiyah"},
-    {n:"Sohibul Barkah", p:"Pendidikan Agama Islam"},
-    {n:"Ulin Nuha", p:"Pendidikan Agama Islam"},
-    {n:"Vera Nopiyani", p:"Ekonomi Syariah"},
-    {n:"Zian Filhiyah", p:"Hukum Pidana Islam"}
-  ]
-};
 
 // Informasi skema (kemasan / paket kompetensi).
 const INFO = {
@@ -790,66 +819,23 @@ const INFO = {
   ]}
 };
 
-const HARI  = ['Minggu','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
-const BULAN = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
-
-const SEAL = '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#419df4" d="M12 1.5l2.4 1.7 2.9-.3 1.2 2.7 2.6 1.3-.3 2.9L22.5 12l-1.7 2.4.3 2.9-2.7 1.2-1.3 2.6-2.9-.3L12 22.5l-2.4-1.7-2.9.3-1.2-2.7-2.6-1.3.3-2.9L1.5 12l1.7-2.4-.3-2.9 2.7-1.2 1.3-2.6 2.9.3z"/><path fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M8 12.3l2.8 2.8 5.2-5.4"/></svg>';
 const gridEl  = document.getElementById('schemeGrid');
 const dateEl  = document.getElementById('schedDate');
 const timeEl  = document.getElementById('schedTime');
 const stateEl = document.getElementById('schedState');
-const input   = document.getElementById('nameInput');
-const listEl  = document.getElementById('plistList');
-const countEl = document.getElementById('plistCount');
 let active = SCHEMES[0];
 
 const esc   = t => t.replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-const escRe = t => t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-// pencocokan longgar: abaikan huruf besar/kecil, titik, koma, apostrof
-const loose = t => t.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9 ]/g, '').replace(/\s+/g, ' ').trim();
 
-function wib(dateStr, timeStr){ return new Date(dateStr + 'T' + timeStr + ':00+07:00').getTime(); }
-function stateOf(s){
-  const now = Date.now(), a = wib(s.date, s.start), b = wib(s.date, s.end);
-  if(now < a) return {cls:'', text:'Mendatang'};
-  if(now < b) return {cls:'live', text:'Berlangsung'};
-  return {cls:'done', text:'Selesai'};
-}
 function renderSchedule(){
-  const [y,m,d] = active.date.split('-').map(Number);
-  const dt = new Date(Date.UTC(y, m-1, d));
-  dateEl.innerHTML = HARI[dt.getUTCDay()] + ',<br>' + d + ' ' + BULAN[m-1] + ' ' + y;
+  dateEl.className = 'sched-date tba';
+  dateEl.innerHTML = 'Segera<br>Diumumkan';
   document.getElementById('venueName').textContent = active.venue;
   document.getElementById('venueSub').textContent = active.venueSub;
   document.getElementById('venueMaps').href = active.maps;
-  timeEl.textContent = active.start.replace(':','.') + '–' + active.end.replace(':','.');
-  updateState();
-}
-function updateState(){
-  const st = stateOf(active);
-  stateEl.className = 'tag-state ' + st.cls;
-  stateEl.innerHTML = '<i></i>' + st.text;
-}
-function renderResults(){
-  const raw = input.value.trim(), q = loose(raw);
-  if(!q){ listEl.hidden = true; countEl.hidden = true; listEl.innerHTML = ''; return; }
-  const all = PESERTA[active.id] || [];
-  listEl.hidden = false;
-  if(!all.length){
-    countEl.hidden = true;
-    listEl.innerHTML = '<li class="plist-empty">Data peserta skema ini akan segera ditambahkan.</li>';
-    return;
-  }
-  const hits = all.filter(x => loose(x.n).includes(q));
-  const re = new RegExp('(' + escRe(raw) + ')', 'ig');
-  countEl.hidden = false;
-  countEl.textContent = hits.length + ' dari ' + all.length + ' peserta';
-  listEl.innerHTML = hits.length
-    ? hits.map((x,i) => '<li class="pcard pop" style="animation-delay:' + (Math.min(i,8)*40) + 'ms">'
-        + '<div class="pname">' + esc(x.n).replace(re, '<mark>$1</mark>') + '</div>'
-        + (x.p ? '<div class="pprodi">' + esc(x.p) + '</div>' : '')
-        + '<div class="pfoot"><span class="pbadge">Tervalidasi' + SEAL + '</span></div></li>').join('')
-    : '<li class="plist-empty">Nama tidak ditemukan</li>';
+  timeEl.textContent = 'Jam menyusul';
+  stateEl.className = 'tag-state soon';
+  stateEl.innerHTML = '<i></i>Mendatang';
 }
 function renderInfo(){
   const inf = INFO[active.id];
@@ -868,13 +854,10 @@ function selectScheme(s){
   gridEl.querySelectorAll('.scheme-btn').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.id === s.id)));
   renderSchedule();
   renderInfo();
-  renderResults();
 }
 gridEl.insertAdjacentHTML('beforeend', SCHEMES.map((s,i) => '<button type="button" class="scheme-btn' + (i === 0 ? ' on' : '') + '" data-id="' + s.id + '" aria-pressed="false">' + esc(s.name) + '</button>').join(''));
 segment('schemeGrid','schemePill', b => selectScheme(SCHEMES.find(s => s.id === b.dataset.id)));
-input.addEventListener('input', renderResults);
 selectScheme(SCHEMES[0]);
-setInterval(updateState, 30000);
 
 /* ============ INFORMASI SKEMA: ANIMASI BERTUMPUK ============ */
 (function(){
@@ -918,6 +901,41 @@ document.getElementById('toContact').addEventListener('click', () => {
   badge.addEventListener('click', e => { e.stopPropagation(); set(tip.hidden); });
   document.addEventListener('click', e => { if(!tip.contains(e.target)) set(false); });
   document.addEventListener('keydown', e => { if(e.key === 'Escape') set(false); });
+})();
+
+/* ============ POPUP BATCH 2 ============ */
+(function(){
+  const modal = document.getElementById('batchModal');
+  const closeBtn = document.getElementById('batchClose');
+  const okBtn = document.getElementById('batchOk');
+  let lastFocus = null;
+  function open(){
+    lastFocus = document.activeElement;
+    modal.classList.add('open');
+    modal.setAttribute('aria-hidden','false');
+    document.body.style.overflow = 'hidden';
+    setTimeout(() => okBtn.focus({preventScroll:true}), 50);
+  }
+  function close(){
+    modal.classList.remove('open');
+    modal.setAttribute('aria-hidden','true');
+    document.body.style.overflow = '';
+    if(lastFocus && lastFocus.focus) lastFocus.focus({preventScroll:true});
+  }
+  closeBtn.addEventListener('click', close);
+  okBtn.addEventListener('click', close);
+  modal.addEventListener('click', e => { if(e.target === modal) close(); });
+  document.addEventListener('keydown', e => {
+    if(!modal.classList.contains('open')) return;
+    if(e.key === 'Escape'){ close(); return; }
+    if(e.key === 'Tab'){ // jaga fokus tetap di dalam popup
+      const f = [...modal.querySelectorAll('a[href],button')];
+      const first = f[0], last = f[f.length - 1];
+      if(e.shiftKey && document.activeElement === first){ e.preventDefault(); last.focus(); }
+      else if(!e.shiftKey && document.activeElement === last){ e.preventDefault(); first.focus(); }
+    }
+  });
+  setTimeout(open, 1300); // muncul setelah animasi pembuka halaman
 })();
 
 /* ============ FULLSCREEN (desktop) ============ */
